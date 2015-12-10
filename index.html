@@ -248,10 +248,10 @@
           <span itemprop="articleBody">
             
               <p>最近花了点时间搭了自己的博客，所以就顺便把搭博客的步骤记录一下。<br>已经安装了node.js的同学，可以直接从&lt;安装Hexo框架&gt;步骤开始。</p>
-<h3 id="u5148touch_u4E24_u4E2A_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u4F1A_u5BFC_u81F4_u5B89_u88C5nvm_u5931_u8D25"><a href="#u5148touch_u4E24_u4E2A_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u4F1A_u5BFC_u81F4_u5B89_u88C5nvm_u5931_u8D25" class="headerlink" title="先touch两个文件，如果没有会导致安装nvm失败"></a>先touch两个文件，如果没有会导致安装nvm失败</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch ~/.bash_profile</span><br><span class="line">touch ~/.profile</span><br></pre></td></tr></table></figure>
-<h3 id="u5B89_u88C5_u6216_u66F4_u65B0nvm_uFF08Node_Version_Manager_29"><a href="#u5B89_u88C5_u6216_u66F4_u65B0nvm_uFF08Node_Version_Manager_29" class="headerlink" title="安装或更新nvm（Node Version Manager)"></a>安装或更新nvm（Node Version Manager)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.<span class="number">29.0</span>/install.sh | bash</span><br></pre></td></tr></table></figure>
+<h3 id="u5148touch_u4E24_u4E2A_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u4F1A_u5BFC_u81F4_u5B89_u88C5nvm_u5931_u8D25"><a href="#u5148touch_u4E24_u4E2A_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u4F1A_u5BFC_u81F4_u5B89_u88C5nvm_u5931_u8D25" class="headerlink" title="先touch两个文件，如果没有会导致安装nvm失败"></a>先touch两个文件，如果没有会导致安装nvm失败</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch ~/.bash_profile</span><br><span class="line">$ touch ~/.profile</span><br></pre></td></tr></table></figure>
+<h3 id="u5B89_u88C5_u6216_u66F4_u65B0nvm_uFF08Node_Version_Manager_29"><a href="#u5B89_u88C5_u6216_u66F4_u65B0nvm_uFF08Node_Version_Manager_29" class="headerlink" title="安装或更新nvm（Node Version Manager)"></a>安装或更新nvm（Node Version Manager)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.<span class="number">29.0</span>/install.sh | bash</span><br></pre></td></tr></table></figure>
 <p>nvm的项目地址: <a href="https://github.com/creationix/nvm#node-version-manager" target="_blank" rel="external">https://github.com/creationix/nvm#node-version-manager</a></p>
-<h3 id="u7528nvm_u5B89_u88C5_u5BF9_u5E94_u7248_u672C_u7684node-js"><a href="#u7528nvm_u5B89_u88C5_u5BF9_u5E94_u7248_u672C_u7684node-js" class="headerlink" title="用nvm安装对应版本的node.js"></a>用nvm安装对应版本的node.js</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm install <span class="number">5.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="u7528nvm_u5B89_u88C5_u5BF9_u5E94_u7248_u672C_u7684node-js"><a href="#u7528nvm_u5B89_u88C5_u5BF9_u5E94_u7248_u672C_u7684node-js" class="headerlink" title="用nvm安装对应版本的node.js"></a>用nvm安装对应版本的node.js</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install <span class="number">5.0</span></span><br></pre></td></tr></table></figure>
 <h3 id="u5B89_u88C5Hexo_u6846_u67B6"><a href="#u5B89_u88C5Hexo_u6846_u67B6" class="headerlink" title="安装Hexo框架"></a>安装Hexo框架</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
 <h3 id="u521B_u5EFA_u535A_u5BA2"><a href="#u521B_u5EFA_u535A_u5BA2" class="headerlink" title="创建博客"></a>创建博客</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">先<span class="built_in">cd</span>至某个目录下</span><br><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
 <h3 id="u65B0_u5EFA_u535A_u6587"><a href="#u65B0_u5EFA_u535A_u6587" class="headerlink" title="新建博文"></a>新建博文</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n <span class="string">"新博文"</span></span><br></pre></td></tr></table></figure>
@@ -262,95 +262,6 @@
 <h3 id="u5EFA_u7ACB_u8FDC_u7A0B_u4ED3_u5E93"><a href="#u5EFA_u7ACB_u8FDC_u7A0B_u4ED3_u5E93" class="headerlink" title="建立远程仓库"></a>建立远程仓库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在github上建一个与你用户名对应的仓库，仓库名必须&lt;你的github用户名.github.io&gt;</span><br><span class="line">修改_config.yml文件，如：</span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: https://github.com/你的github用户名/你的github用户名.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 <h3 id="u90E8_u7F72"><a href="#u90E8_u7F72" class="headerlink" title="部署"></a>部署</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
 <p>大功告成，访问你的&lt;你的github用户名.github.io&gt;就可以看到自己的个人博客了</p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/12/08/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-12-08T11:26:53+08:00" content="2015-12-08">
-              2015-12-08
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
             
           </span>
