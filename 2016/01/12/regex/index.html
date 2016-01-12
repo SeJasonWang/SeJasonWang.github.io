@@ -1,0 +1,793 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="OC," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="在iOS开发中，虽然绝大部分的数据校验逻辑都由服务端来处理，但客户端也可以加一些简单和必要的校验，以来提升用户体验，比如校验某个手机号是否符合规范。或针对服务端下发的某些数据进行特殊处理，比如标红字符串中的数字。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式的简单运用">
+<meta property="og:url" content="http://yoursite.com/2016/01/12/regex/index.html">
+<meta property="og:site_name" content="Jason Wang's Blog">
+<meta property="og:description" content="在iOS开发中，虽然绝大部分的数据校验逻辑都由服务端来处理，但客户端也可以加一些简单和必要的校验，以来提升用户体验，比如校验某个手机号是否符合规范。或针对服务端下发的某些数据进行特殊处理，比如标红字符串中的数字。">
+<meta property="og:updated_time" content="2016-01-12T14:50:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式的简单运用">
+<meta name="twitter:description" content="在iOS开发中，虽然绝大部分的数据校验逻辑都由服务端来处理，但客户端也可以加一些简单和必要的校验，以来提升用户体验，比如校验某个手机号是否符合规范。或针对服务端下发的某些数据进行特殊处理，比如标红字符串中的数字。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> 正则表达式的简单运用 | Jason Wang's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Jason Wang's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                正则表达式的简单运用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-12T21:14:44+08:00" content="2016-01-12">
+              2016-01-12
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在iOS开发中，虽然绝大部分的数据校验逻辑都由服务端来处理，但客户端也可以加一些简单和必要的校验，以来提升用户体验，比如校验某个手机号是否符合规范。<br>或针对服务端下发的某些数据进行特殊处理，比如标红字符串中的数字。<br><a id="more"></a></p>
+<h3 id="u6821_u9A8C_u624B_u673A_u53F7_u7801_u662F_u5426_u7B26_u5408_u89C4_u8303"><a href="#u6821_u9A8C_u624B_u673A_u53F7_u7801_u662F_u5426_u7B26_u5408_u89C4_u8303" class="headerlink" title="校验手机号码是否符合规范"></a>校验手机号码是否符合规范</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)checkPhoneNumber:(NSString *)number &#123;</span><br><span class="line">    NSRegularExpression *regular = [NSRegularExpression regularExpressionWithPattern:@<span class="string">"^1(3|4|5|7|8)[0-9]&#123;9&#125;$"</span> options:<span class="number">0</span> error:NULL];</span><br><span class="line">    NSArray *matches = [regular matchesInString:number options:<span class="number">0</span> range:NSMakeRange(<span class="number">0</span>, number.length)];</span><br><span class="line">    <span class="keyword">if</span> (matches.count) &#123;</span><br><span class="line">        <span class="built_in">return</span> YES;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">return</span> NO;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u6807_u7EA2_u5B57_u7B26_u4E32_u4E2D_u7684_u6570_u5B57"><a href="#u6807_u7EA2_u5B57_u7B26_u4E32_u4E2D_u7684_u6570_u5B57" class="headerlink" title="标红字符串中的数字"></a>标红字符串中的数字</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (NSAttributedString *)labelNumberRedInString:(NSString *)string &#123;</span><br><span class="line">    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:string];</span><br><span class="line">    NSRegularExpression *regular = [NSRegularExpression regularExpressionWithPattern:@<span class="string">"[0-9]+"</span> options:<span class="number">0</span> error:NULL];</span><br><span class="line">    NSArray *matches = [regular matchesInString:string options:<span class="number">0</span> range:NSMakeRange(<span class="number">0</span>, [string length])];</span><br><span class="line">    <span class="keyword">for</span> (NSTextCheckingResult *result <span class="keyword">in</span> matches) &#123;</span><br><span class="line">        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:result.range];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> [attrString copy];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u6B63_u5219_u8868_u8FBE_u5F0F_u5168_u90E8_u7B26_u53F7_u89E3_u91CA"><a href="#u6B63_u5219_u8868_u8FBE_u5F0F_u5168_u90E8_u7B26_u53F7_u89E3_u91CA" class="headerlink" title="正则表达式全部符号解释"></a>正则表达式全部符号解释</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\</td>
+<td style="text-align:left">将下一个字符标记为一个特殊字符、或一个原义字符、或一个 向后引用、或一个八进制转义符。例如，’n’ 匹配字符 “n”。’\n’ 匹配一个换行符。序列 ‘\‘ 匹配 “\” 而 “(“ 则匹配 “(“。</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:left">匹配输入字符串的开始位置。如果设置了 RegExp 对象的 Multiline 属性，^ 也匹配 ‘\n’ 或 ‘\r’ 之后的位置。</td>
+</tr>
+<tr>
+<td style="text-align:center">$</td>
+<td style="text-align:left">匹配输入字符串的结束位置。如果设置了RegExp 对象的 Multiline 属性，$ 也匹配 ‘\n’ 或 ‘\r’ 之前的位置。</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:left">匹配前面的子表达式零次或多次。例如，zo<em> 能匹配 “z” 以及 “zoo”。</em> 等价于{0,}。</td>
+</tr>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:left">匹配前面的子表达式一次或多次。例如，’zo+’ 能匹配 “zo” 以及 “zoo”，但不能匹配 “z”。+ 等价于 {1,}。</td>
+</tr>
+<tr>
+<td style="text-align:center">?</td>
+<td style="text-align:left">匹配前面的子表达式零次或一次。例如，”do(es)?” 可以匹配 “do” 或 “does” 中的”do” 。? 等价于 {0,1}。</td>
+</tr>
+<tr>
+<td style="text-align:center">{n}</td>
+<td style="text-align:left">n 是一个非负整数。匹配确定的 n 次。例如，’o{2}’ 不能匹配 “Bob” 中的 ‘o’，但是能匹配 “food” 中的两个 o。</td>
+</tr>
+<tr>
+<td style="text-align:center">{n,}</td>
+<td style="text-align:left">n 是一个非负整数。至少匹配n 次。例如，’o{2,}’ 不能匹配 “Bob” 中的 ‘o’，但能匹配 “foooood” 中的所有 o。’o{1,}’ 等价于 ‘o+’。’o{0,}’ 则等价于 ‘o*’。</td>
+</tr>
+<tr>
+<td style="text-align:center">{n,m}</td>
+<td style="text-align:left">m 和 n 均为非负整数，其中n &lt;= m。最少匹配 n 次且最多匹配 m 次。例如，”o{1,3}” 将匹配 “fooooood” 中的前三个 o。’o{0,1}’ 等价于 ‘o?’。请注意在逗号和两个数之间不能有空格。</td>
+</tr>
+<tr>
+<td style="text-align:center">?</td>
+<td style="text-align:left">当该字符紧跟在任何一个其他限制符 (*, +, ?, {n}, {n,}, {n,m}) 后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串 “oooo”，’o+?’ 将匹配单个 “o”，而 ‘o+’ 将匹配所有 ‘o’。</td>
+</tr>
+<tr>
+<td style="text-align:center">.</td>
+<td style="text-align:left">匹配除 “\n” 之外的任何单个字符。要匹配包括 ‘\n’ 在内的任何字符，请使用象 ‘[.\n]’ 的模式。</td>
+</tr>
+<tr>
+<td style="text-align:center">(pattern)</td>
+<td style="text-align:left">匹配 pattern 并获取这一匹配。所获取的匹配可以从产生的 Matches 集合得到，在VBScript 中使用 SubMatches 集合，在JScript 中则使用 $0…$9 属性。要匹配圆括号字符，请使用 ‘(‘ 或 ‘)‘。</td>
+</tr>
+<tr>
+<td style="text-align:center">(?:pattern)</td>
+<td style="text-align:left">匹配 pattern 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用 “或” 字符 (│) 来组合一个模式的各个部分是很有用。例如， ‘industr(?:y│ies) 就是一个比 ‘industry│industries’ 更简略的表达式。</td>
+</tr>
+<tr>
+<td style="text-align:center">(?=pattern)</td>
+<td style="text-align:left">正向预查，在任何匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如，’Windows (?=95│98│NT│2000)’ 能匹配 “Windows 2000” 中的 “Windows” ，但不能匹配 “Windows 3.1” 中的 “Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。</td>
+</tr>
+<tr>
+<td style="text-align:center">(?!pattern)</td>
+<td style="text-align:left">负向预查，在任何不匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如’Windows (?!95│98│NT│2000)’ 能匹配 “Windows 3.1” 中的 “Windows”，但不能匹配 “Windows 2000” 中的 “Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始</td>
+</tr>
+<tr>
+<td style="text-align:center">x│y</td>
+<td style="text-align:left">匹配 x 或 y。例如，’z│food’ 能匹配 “z” 或 “food”。’(z│f)ood’ 则匹配 “zood” 或 “food”。</td>
+</tr>
+<tr>
+<td style="text-align:center">[xyz]</td>
+<td style="text-align:left">字符集合。匹配所包含的任意一个字符。例如， ‘[abc]’ 可以匹配 “plain” 中的 ‘a’。</td>
+</tr>
+<tr>
+<td style="text-align:center">[^xyz]</td>
+<td style="text-align:left">负值字符集合。匹配未包含的任意字符。例如， ‘[^abc]’ 可以匹配 “plain” 中的’p’。</td>
+</tr>
+<tr>
+<td style="text-align:center">[a-z]</td>
+<td style="text-align:left">字符范围。匹配指定范围内的任意字符。例如，’[a-z]’ 可以匹配 ‘a’ 到 ‘z’ 范围内的任意小写字母字符。</td>
+</tr>
+<tr>
+<td style="text-align:center">[^a-z]</td>
+<td style="text-align:left">负值字符范围。匹配任何不在指定范围内的任意字符。例如，’[^a-z]’ 可以匹配任何不在 ‘a’ 到 ‘z’ 范围内的任意字符。</td>
+</tr>
+<tr>
+<td style="text-align:center">\b</td>
+<td style="text-align:left">匹配一个单词边界，也就是指单词和空格间的位置。例如， ‘er\b’ 可以匹配”never” 中的 ‘er’，但不能匹配 “verb” 中的 ‘er’。</td>
+</tr>
+<tr>
+<td style="text-align:center">\B</td>
+<td style="text-align:left">匹配非单词边界。’er\B’ 能匹配 “verb” 中的 ‘er’，但不能匹配 “never” 中的 ‘er’。</td>
+</tr>
+<tr>
+<td style="text-align:center">\cx</td>
+<td style="text-align:left">匹配由 x 指明的控制字符。例如， \cM 匹配一个 Control-M 或回车符。x 的值必须为 A-Z 或 a-z 之一。否则，将 c 视为一个原义的 ‘c’ 字符。</td>
+</tr>
+<tr>
+<td style="text-align:center">\d</td>
+<td style="text-align:left">匹配一个数字字符。等价于 [0-9]。</td>
+</tr>
+<tr>
+<td style="text-align:center">\D</td>
+<td style="text-align:left">匹配一个非数字字符。等价于 [^0-9]。</td>
+</tr>
+<tr>
+<td style="text-align:center">\f</td>
+<td style="text-align:left">匹配一个换页符。等价于 \x0c 和 \cL。</td>
+</tr>
+<tr>
+<td style="text-align:center">\n</td>
+<td style="text-align:left">匹配一个换行符。等价于 \x0a 和 \cJ。</td>
+</tr>
+<tr>
+<td style="text-align:center">\r</td>
+<td style="text-align:left">匹配一个回车符。等价于 \x0d 和 \cM。</td>
+</tr>
+<tr>
+<td style="text-align:center">\s</td>
+<td style="text-align:left">匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td style="text-align:center">\S</td>
+<td style="text-align:left">匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td style="text-align:center">\t</td>
+<td style="text-align:left">匹配一个制表符。等价于 \x09 和 \cI。</td>
+</tr>
+<tr>
+<td style="text-align:center">\v</td>
+<td style="text-align:left">匹配一个垂直制表符。等价于 \x0b 和 \cK。</td>
+</tr>
+<tr>
+<td style="text-align:center">\w</td>
+<td style="text-align:left">匹配包括下划线的任何单词字符。等价于’[A-Za-z0-9_]’。</td>
+</tr>
+<tr>
+<td style="text-align:center">\W</td>
+<td style="text-align:left">匹配任何非单词字符。等价于 ‘[^A-Za-z0-9_]’。</td>
+</tr>
+<tr>
+<td style="text-align:center">\xn</td>
+<td style="text-align:left">匹配 n，其中 n 为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，’\x41’ 匹配 “A”。’\x041’ 则等价于 ‘\x04’ &amp; “1”。正则表达式中可以使用 ASCII 编码。.</td>
+</tr>
+<tr>
+<td style="text-align:center">\num</td>
+<td style="text-align:left">匹配 num，其中 num 是一个正整数。对所获取的匹配的引用。例如，’(.)\1’ 匹配两个连续的相同字符。</td>
+</tr>
+<tr>
+<td style="text-align:center">\n</td>
+<td style="text-align:left">标识一个八进制转义值或一个向后引用。如果 \n 之前至少 n 个获取的子表达式，则 n 为向后引用。否则，如果 n 为八进制数字 (0-7)，则 n 为一个八进制转义值。</td>
+</tr>
+<tr>
+<td style="text-align:center">\nm</td>
+<td style="text-align:left">标识一个八进制转义值或一个向后引用。如果 \nm 之前至少有 nm 个获得子表达式，则 nm 为向后引用。如果 \nm 之前至少有 n 个获取，则 n 为一个后跟文字 m 的向后引用。如果前面的条件都不满足，若 n 和 m 均为八进制数字 (0-7)，则 \nm 将匹配八进制转义值 nm。</td>
+</tr>
+<tr>
+<td style="text-align:center">\nml</td>
+<td style="text-align:left">如果 n 为八进制数字 (0-3)，且 m 和 l 均为八进制数字 (0-7)，则匹配八进制转义值 nml。</td>
+</tr>
+<tr>
+<td style="text-align:center">\un</td>
+<td style="text-align:left">匹配 n，其中 n 是一个用四个十六进制数字表示的 Unicode 字符。例如， \u00A9 匹配版权符号 (?)。</td>
+</tr>
+</tbody>
+</table>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OC/" rel="tag">#OC</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/11/credit-card/" rel="next" title="信用卡无手续费套现教程">
+                <i class="fa fa-chevron-left"></i> 信用卡无手续费套现教程
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="Jason Wang" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Jason Wang</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">两个黄鹂鸣翠柳，一行白鹭上青天。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">友情链接</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://kevinmky.github.io" target="_blank">KevinMkY</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u6821_u9A8C_u624B_u673A_u53F7_u7801_u662F_u5426_u7B26_u5408_u89C4_u8303"><span class="nav-number">1.</span> <span class="nav-text">校验手机号码是否符合规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6807_u7EA2_u5B57_u7B26_u4E32_u4E2D_u7684_u6570_u5B57"><span class="nav-number">2.</span> <span class="nav-text">标红字符串中的数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6B63_u5219_u8868_u8FBE_u5F0F_u5168_u90E8_u7B26_u53F7_u89E3_u91CA"><span class="nav-number">3.</span> <span class="nav-text">正则表达式全部符号解释</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jason Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
