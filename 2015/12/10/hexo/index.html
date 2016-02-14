@@ -63,7 +63,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/12/10/hexo/index.html">
 <meta property="og:site_name" content="Jason Wang's Blog">
 <meta property="og:description" content="最近花了点时间搭了自己的博客，所以就顺便把搭博客的步骤记录一下。已经安装了node.js的同学，可以直接从&amp;lt;安装Hexo框架&amp;gt;步骤开始。打开你的终端开始吧，幸运的话，半个小时也许你就能搭好你的博客。">
-<meta property="og:updated_time" content="2015-12-16T13:48:06.000Z">
+<meta property="og:updated_time" content="2016-02-14T02:40:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客搭建教程">
 <meta name="twitter:description" content="最近花了点时间搭了自己的博客，所以就顺便把搭博客的步骤记录一下。已经安装了node.js的同学，可以直接从&amp;lt;安装Hexo框架&amp;gt;步骤开始。打开你的终端开始吧，幸运的话，半个小时也许你就能搭好你的博客。">
@@ -247,6 +247,7 @@
 <h3 id="u5B89_u88C5nvm_uFF08Node_Version_Manager_29"><a href="#u5B89_u88C5nvm_uFF08Node_Version_Manager_29" class="headerlink" title="安装nvm（Node Version Manager)"></a>安装nvm（Node Version Manager)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.<span class="number">29.0</span>/install.sh | bash</span><br></pre></td></tr></table></figure>
 <p>安装完毕后，需要重启你的终端<br>nvm的项目地址: <a href="https://github.com/creationix/nvm#node-version-manager" target="_blank" rel="external">传送门</a></p>
 <h3 id="u7528nvm_u5B89_u88C5_u5BF9_u5E94_u7248_u672C_u7684node-js"><a href="#u7528nvm_u5B89_u88C5_u5BF9_u5E94_u7248_u672C_u7684node-js" class="headerlink" title="用nvm安装对应版本的node.js"></a>用nvm安装对应版本的node.js</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install <span class="number">4.1</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>如果发现nvm无法使用，试试加一句<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ . ~/.nvm/nvm.sh</span><br></pre></td></tr></table></figure></p>
 <h3 id="u5B89_u88C5Hexo_u6846_u67B6"><a href="#u5B89_u88C5Hexo_u6846_u67B6" class="headerlink" title="安装Hexo框架"></a>安装Hexo框架</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
 <h3 id="u521B_u5EFA_u535A_u5BA2"><a href="#u521B_u5EFA_u535A_u5BA2" class="headerlink" title="创建博客"></a>创建博客</h3><p>先cd至某个目录下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
